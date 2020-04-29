@@ -21,7 +21,17 @@ Route::get('/', function () {
 });
 
 Route::get('/about', function () {
-  return view('about');
+   // $articles = App\Article::all(); // Fetches all entries from table. Not really good practice.
+
+  // $articles = App\Article::take(2)->get(); // Take 2 entries from articles table and return them
+
+  // $articles = App\Article::paginate(2); // Laravel generates a paginator instance in sets of 2
+
+  $articles = App\Article::take(3)->latest()->get(); //  Order by created_at in descending order. Can also pass in variable to latest() to order by a different column. (e.g. published_at, updated_at, etc)
+
+  return view('about', [
+    'articles' => $articles
+  ]);
 });
 
 // Using a closure
