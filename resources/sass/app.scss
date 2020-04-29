@@ -1,1 +1,11 @@
 //
+$myColor: #f4a;
+
+body {
+    color: $myColor;
+}
+
+html {
+    color: $myColor;
+    // border: 5px solid $myColor;
+}
