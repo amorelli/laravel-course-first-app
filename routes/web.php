@@ -34,6 +34,10 @@ Route::get('/about', function () {
   ]);
 });
 
+Route::get('/articles/{article}', 'ArticlesController@show');
+
+Route::get('/articles', 'ArticlesController@index');
+
 // Using a closure
 // Route::get('/posts/{post}', function ($post) {
 //   $posts = [
