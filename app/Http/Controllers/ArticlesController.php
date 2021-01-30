@@ -32,52 +32,37 @@ class ArticlesController extends Controller
   public function store()
   {
     // Persist the resource from the create form
-    request()->validate([
-      'title' => ['required', 'min:3', 'max:255'],
-      'excerpt' => 'required',
-      'body' => 'required',
-    ]);
+    Article::create($this->validateArticle());
 
-    $article = new Article();
-
-    $article->title = request('title');
-    $article->excerpt = request('excerpt');
-    $article->body = request('body');
-
-    $article->save();
-
-    return redirect('/articles');
+    return redirect(route('articles.index'));
   }
 
   public function edit(Article $article)
   {
     // Show a view to edit an existing resource
     // $article = Article::find($id);
-
     return view('articles.edit', ['article' => $article]);
   }
 
   public function update(Article $article)
   {
     // Persist the edited resource from edit form
-    request()->validate([
-      'title' => ['required', 'min:3', 'max:255'],
-      'excerpt' => 'required',
-      'body' => 'required',
-    ]);
+    $article->update($this->validateArticle());
 
-    $article = Article::find($id);
-    $article->title = request('title');
-    $article->excerpt = request('excerpt');
-    $article->body = request('body');
-
-    $article->save();
-
-    return redirect('/articles/' . $article->id);
+    return redirect($article->path());
   }
 
   public function destroy()
   {
     // Delete the resource
+  }
+
+  protected function validateArticle()
+  {
+    return request()->validate([
+      'title' => ['required', 'min:3', 'max:255'],
+      'excerpt' => 'required',
+      'body' => 'required',
+    ]);
   }
 }
