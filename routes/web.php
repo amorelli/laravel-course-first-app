@@ -14,29 +14,30 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    $name = request('name');
-    return view('welcome', [
-      'name' => $name
-    ]);
+  $name = request('name');
+  return view('welcome', [
+    'name' => $name
+  ]);
 });
 
 Route::get('/about', function () {
-   // $articles = App\Article::all(); // Fetches all entries from table. Not really good practice.
-
+  // $articles = App\Article::all(); // Fetches all entries from table. Not really good practice.
   // $articles = App\Article::take(2)->get(); // Take 2 entries from articles table and return them
-
   // $articles = App\Article::paginate(2); // Laravel generates a paginator instance in sets of 2
-
   $articles = App\Article::take(3)->latest()->get(); //  Order by created_at in descending order. Can also pass in variable to latest() to order by a different column. (e.g. published_at, updated_at, etc)
-
   return view('about', [
     'articles' => $articles
   ]);
 });
 
-Route::get('/articles/{article}', 'ArticlesController@show');
-
 Route::get('/articles', 'ArticlesController@index');
+Route::post('/articles', 'ArticlesController@store');
+Route::get('/articles/create', 'ArticlesController@create');
+Route::get('/articles/{article}', 'ArticlesController@show');
+Route::get('/articles/{article}/edit', 'ArticlesController@edit');
+Route::put('/articles/{article}', 'ArticlesController@update');
+// Using a controller
+Route::get('/posts/{post}', 'PostController@show');
 
 // Using a closure
 // Route::get('/posts/{post}', function ($post) {
@@ -53,6 +54,3 @@ Route::get('/articles', 'ArticlesController@index');
 //     'post' => $posts[$post]
 //   ]);
 // });
-
-// Using a controller
-Route::get('/posts/{post}', 'PostController@show');
