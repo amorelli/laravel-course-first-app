@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use PhpParser\Node\FunctionLike;
 
 class Article extends Model
 {
@@ -21,5 +22,18 @@ class Article extends Model
   public function path()
   {
     return route('articles.show', $this);
+  }
+
+  public function author()
+  {
+    /* The second argument overrides the Foreign Key, because laravel assumes our
+    *  method name is the FK (methodname_id)
+    */
+    return $this->belongsTo(User::class, 'user_id');
+  }
+
+  public function tags()
+  {
+    return $this->belongsToMany(Tag::class);
   }
 }
