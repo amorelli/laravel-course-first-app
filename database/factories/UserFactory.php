@@ -17,7 +17,7 @@ use Illuminate\Support\Str;
 |
 */
 
-$factory->define(User::class, function (Faker $faker) {
+$factory->define(User::class, function (Faker $faker) { // faker is a library for faking userinfo
     return [
         'name' => $faker->name,
         'email' => $faker->unique()->safeEmail,

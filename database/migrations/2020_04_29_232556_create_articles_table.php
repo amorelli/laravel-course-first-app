@@ -21,6 +21,7 @@ class CreateArticlesTable extends Migration
       $table->text('body');
       $table->timestamps();
 
+      // Foreign Key constraint (If this user is deleted, also delete their articles)
       $table->foreign('user_id')
         ->references('id')
         ->on('users')

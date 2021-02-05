@@ -47,3 +47,10 @@ class User extends Authenticatable
     return $this->hasMany(Project::class);
   }
 }
+
+// Relationships: One Model's relationship to another
+// examples:
+// hasOne
+// hasMany
+// belongsTo
+// belongsToMany
